@@ -1,7 +1,39 @@
-zf:
-  build: .
-  dockerfile: Dockerfile
-  ports:
-   - "8080:80"
-  volumes:
-   - .:/var/www
+version: "3"
+services:
+  redis:
+    image: redis:alpine
+    container_name: ms-redis
+  web:
+    image: nginx:alpine
+    container_name: ms-nginx
+    environment:
+      - SUDO_UID
+      - DEVELOPER=igor
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/all.nginx.conf
+      - .:/app.api
+    ports:
+      - "80:80"
+    networks:
+      default:
+        aliases:
+            - api.igor.local.com
+    links:
+      - php-api
+
+  php-api:
+    build: .
+    container_name: ms-php-api
+    links:
+      - redis
+    environment:
+      - SUDO_UID
+      - XDEBUG_HOST=172.20.0.1
+      - DEVELOPER=igor
+    working_dir: /app.api
+    volumes:
+      - .:/app.api
+      - ./docker/fpm/php-fpm.conf:/etc/php7/php-fpm.d/www.conf
+networks:
+  default:
+    driver: bridge
