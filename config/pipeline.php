@@ -2,24 +2,21 @@
 
 namespace  {
 
-    use Zend\Expressive\Helper\ServerUrlMiddleware;
-    use Zend\Expressive\Helper\UrlHelperMiddleware;
+    use App\Infrastructure\Router\Middleware\InitializeFromRequest;
     use Zend\Expressive\Middleware\NotFoundHandler;
-    use Zend\Expressive\Router\Middleware\DispatchMiddleware;
     use Zend\Stratigility\Middleware\ErrorHandler;
     use Zend\Expressive\Router\Middleware\RouteMiddleware;
+    use Zend\Expressive\Router\Middleware\DispatchMiddleware;
+
+    /**
+     * Setup middleware pipeline:
+     */
 
     /** @var Zend\Expressive\Application $app */
     $app->pipe(ErrorHandler::class);
-
-    $app->pipe(ServerUrlMiddleware::class);
-
-//    $app->pipe(RouteMiddleware::class);
-
-    $app->pipe(UrlHelperMiddleware::class);
-
+    $app->pipe(RouteMiddleware::class);
+    $app->pipe(InitializeFromRequest::class);
     $app->pipe(DispatchMiddleware::class);
-
     $app->pipe(NotFoundHandler::class);
 
 }

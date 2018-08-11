@@ -5,6 +5,8 @@ namespace App;
 
 
 use App\Controller\PingAction\PingAction;
+use App\Infrastructure\Router\Middleware\InitializeFromRequest;
+use App\Infrastructure\Router\Middleware\InitializeFromRequestFactory;
 use Zend\ServiceManager\Factory\InvokableFactory;
 
 class ConfigProvider
@@ -16,6 +18,7 @@ class ConfigProvider
             'factories' => [
                 PingAction::class   => InvokableFactory::class,
 
+                InitializeFromRequest::class => InitializeFromRequestFactory::class,
             ]
         ];
     }

@@ -9,14 +9,15 @@ use Interop\Http\ServerMiddleware\DelegateInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Stream;
+use Zend\Expressive\Delegate\NotFoundDelegate as Delegate;
 
-class NotFoundDelegate implements DelegateInterface
+class NotFoundDelegate extends Delegate implements DelegateInterface
 {
 
     /**
      * @var ResponseInterface
      */
-    private $responsePrototype;
+    protected $responsePrototype;
 
     /**
      * NotFoundDelegate constructor.
@@ -24,7 +25,10 @@ class NotFoundDelegate implements DelegateInterface
      */
     public function __construct(ResponseInterface $responsePrototype)
     {
+        parent::__construct($responsePrototype);
+
         $this->responsePrototype = $responsePrototype;
+
     }
 
     /**

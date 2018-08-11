@@ -34,6 +34,7 @@ class ErrorResponseGenerator
 
         if ($this->debugMode) {
             $jsonResponse['exception'] = $this->exceptionToArray($e);
+            exit(var_dump($jsonResponse['exception']));
         }
 
         $response->withHeader('Content-Type', 'application/json')
