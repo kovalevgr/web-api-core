@@ -7,7 +7,10 @@ namespace App;
 use App\Controller\PingAction\PingAction;
 use App\Infrastructure\Router\Middleware\InitializeFromRequest;
 use App\Infrastructure\Router\Middleware\InitializeFromRequestFactory;
+use Zend\Expressive\Router\Middleware\RouteMiddlewareFactory;
 use Zend\ServiceManager\Factory\InvokableFactory;
+
+use Zend\Expressive\Router\Middleware\RouteMiddleware;
 
 class ConfigProvider
 {
@@ -19,6 +22,7 @@ class ConfigProvider
                 PingAction::class   => InvokableFactory::class,
 
                 InitializeFromRequest::class => InitializeFromRequestFactory::class,
+                RouteMiddleware::class => RouteMiddlewareFactory::class,
             ]
         ];
     }

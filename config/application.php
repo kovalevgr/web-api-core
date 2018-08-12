@@ -48,9 +48,7 @@ namespace {
 
             ],
             'delegators' => [
-                Zend\Stratigility\Middleware\ErrorHandler::class => [
-//                    LoggingErrorListenerDelegator::class
-                ]
+
             ]
         ],
     ];
