@@ -10,8 +10,8 @@ services:
       - SUDO_UID
       - DEVELOPER=igor
     volumes:
-      - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/all.nginx.conf
-      - .:/app.api
+    - .:/app.api
+    - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/all.nginx.conf
     ports:
       - "80:80"
     networks:

@@ -2,12 +2,12 @@ FROM nginx:alpine
 
 CMD ["/bin/sh"]
 
-MAINTAINER Kovalev Igor <kovalevgr@gmail.come>
+MAINTAINER Kovalev Igor <kovalevgr@gmail.com>
 
 RUN apk update && apk upgrade && \
     apk --update --repository=http://dl-4.alpinelinux.org/alpine/edge/main --no-cache add \
-    libressl2.7-libcrypto \
-    libressl2.7-libssl \
+#    libressl2.7-libcrypto \
+#    libressl2.7-libssl \
     musl \
     curl \
     bash \
@@ -63,7 +63,7 @@ RUN apk update && apk upgrade -U && \
     echo "xdebug.remote_handler=dbgp" >> /etc/php7/conf.d/xdebug.ini && \
     echo "xdebug.remote_connect_back=0" >> /etc/php7/conf.d/xdebug.ini && \
     echo "xdebug.remote_autostart=on" >> /etc/php7/conf.d/xdebug.ini && \
-    echo "xdebug.remote_host=172.20.0.1" >> /etc/php7/conf.d/xdebug.ini && \
+    echo "xdebug.remote_host=host.docker.internal" >> /etc/php7/conf.d/xdebug.ini && \
     echo "xdebug.remote_port=9004" >> /etc/php7/conf.d/xdebug.ini && \
     echo "xdebug.profiler_enable_trigger=1" >> /etc/php7/conf.d/xdebug.ini
 
